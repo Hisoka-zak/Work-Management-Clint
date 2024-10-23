@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Managment Systme</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        .container1 {
+            background-image:  url('Image1.jpeg');
+            background-size: cover; /* Ensures the image covers the entire container */
+            background-position: center; /* Centers the image */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            height: 600px;
+        }
+
+        .header {
+            background-color: #555555;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .header h1 {
+            padding-top: 120px;
+            padding-bottom: 20px;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #181818;
+        }
+        .header p {
+            margin: 20px 0;
+            font-size: 1.2rem;
+            color: #181818;
+
+        }
+        .btn-custom {
+            font-weight: bold;
+            padding: 10px 20px;
+        }
+        .card {
+            margin-bottom: 30px;
+        }
+        span{
+            font-weight: bold;
+        }
+        .services .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 400px; /* Fixed height for all cards */
+        }
+        .services .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        .services .card-body {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .services .card h5 {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+        .services .card p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .services .card .date {
+            font-size: 14px;
+            color: #888;
+        }
+        .services .btn {
+            border-radius: 5px;
+            padding: 10px 25px;
+            font-size: 14px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .services .btn:hover {
+            background-color: #333;
+            color: #fff;
+        }
+        .icon-wrapper {
+            font-size: 40px;
+            color: #5ea2ef;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#"><h5>WORK SPACE</h5></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="header">
+        <div class="container1">
+            <h1>Work Managment Systme</h1>
+            <img src="moha.avif" alt="John Doe" class="rounded-circle" width="120" height="120">
+            <p>Welcome Mohammed  </p>
+            <p>Here is your space in which you will find some tasks to do</p>
+            <a href="#" class="btn btn-dark btn-custom">View Tasks</a>
+
+        </div>
+    </section>
+
+    <!-- Cards Section -->
+    <section class="services">
+        <div class="container">
+            <div class="row mt-5">
+                <!-- Task 1 -->
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="icon-wrapper">
+                                <i class="bi bi-speedometer2"></i>
+                            </div>
+                            <h5 class="card-title">Task 1</h5>
+                            <p class="date"><span>Due Date:</span> 12/3/2025</p>
+                            <p class="card-text">Monitor and maintain network performance and hardware functionality to ensure smooth operations.</p>
+                            <a href="#" class="btn btn-outline-dark">Click here when it's done</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Task 2 -->
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="icon-wrapper">
+                                <i class="bi bi-shield-lock"></i>
+                            </div>
+                            <h5 class="card-title">Task 2</h5>
+                            <p class="date"><span>Due Date:</span> 17/7/2025</p>
+                            <p class="card-text">Conduct a security audit and prepare incident response plans to strengthen network defenses.</p>
+                            <a href="#" class="btn btn-outline-dark">Click here when it's done</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Task 3 -->
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="icon-wrapper">
+                                <i class="bi bi-graph-up-arrow"></i>
+                            </div>
+                            <h5 class="card-title">Task 3</h5>
+                            <p class="date"><span>Due Date:</span> 15/3/2025</p>
+                            <p class="card-text">Optimize network performance and update documentation, including disaster recovery plans.</p>
+                            <a href="#" class="btn btn-outline-dark">Click here when it's done</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

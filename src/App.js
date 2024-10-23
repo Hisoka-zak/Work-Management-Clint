@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import {BrowserRouter,Route,Routes} from 'react-router-dom';
+import Home from './copmonents/pages/Home';
+import Login from './copmonents/pages/Login';
+import Register from './copmonents/pages/Register';
+import Contact from './copmonents/pages/Contact';
+import Admin from './copmonents/pages/Admin';
+import UpdateTask from './copmonents/pages/UpdateTask';
+import DeleteTasks from './copmonents/pages/DeleteTasks';
+import CompletedTasks from './copmonents/pages/CompletedTasks';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <BrowserRouter>
+  <Routes>
+    <Route path='/'           element={<Login/>}/>
+    <Route path='/home'       element={<Home/>}/>
+    <Route path='/login'      element=''/>
+    <Route path='/register'   element={<Register/>}/>
+    <Route path='/contact'    element={<Contact/>}/>
+    <Route path='/completedTasks' element={<CompletedTasks/>}/>
+    <Route path='/admin'      element={<Admin/>}/>
+    <Route path='/deletTasks' element={<DeleteTasks/>}/>
+    <Route path='/updateTask' element={<UpdateTask/>}/>
+  </Routes>
+  </BrowserRouter>
   );
 }
 
