@@ -3,7 +3,7 @@ import "../css/Admin.css";
 import admin from "../assets/admin.avif";
 
 const Admin = () => {
-
+let Users = ['Ali','Said','Nasser']
   return (
     <div className="admin-panel">
     <div className="sidebar">
@@ -33,9 +33,9 @@ const Admin = () => {
               <option value="" disabled selected>
                 Select Username
               </option>
-              <option value="user1">John Doe</option>
-              <option value="user2">Jane Smith</option>
-              <option value="user3">Sam Wilson</option>
+              {Users.map(user => (
+              <option key={user} value={user}>{user}</option>
+              ))}
             </select>
             <button class="view-btn">View Task</button>
           </div>

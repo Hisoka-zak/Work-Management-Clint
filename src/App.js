@@ -8,6 +8,7 @@ import Admin from './copmonents/pages/Admin';
 import UpdateTask from './copmonents/pages/UpdateTask';
 import DeleteTasks from './copmonents/pages/DeleteTasks';
 import CompletedTasks from './copmonents/pages/CompletedTasks';
+import TestAddress from './copmonents/pages/TestAdddress';
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
     <Route path='/admin'      element={<Admin/>}/>
     <Route path='/deletTasks' element={<DeleteTasks/>}/>
     <Route path='/updateTask' element={<UpdateTask/>}/>
+    <Route path='/TestAddress' element={<TestAddress/>}/>
+
   </Routes>
   </BrowserRouter>
   );

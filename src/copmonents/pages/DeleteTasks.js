@@ -253,15 +253,19 @@ const DeleteTasks = () => {
             {showStaffInfo && (
               <div className="staff-info mt-4 p-3 text-dark border ">
                 <p>
+                <i class="bi bi-globe-americas"></i>&nbsp;&nbsp;
                   <strong>Country:</strong> OMAN (OM)
                 </p>
                 <p>
+                <i class="bi bi-geo-alt-fill"></i>&nbsp;&nbsp;
                   <strong>City:</strong> Muscat
                 </p>
                 <p>
+                <i class="bi bi-clock"></i>&nbsp;&nbsp;
                   <strong>Timezone:</strong> Abu Dhabi / Muscat
                 </p>
                 <p>
+                <i class="bi bi-pc-display"></i>&nbsp;&nbsp;
                   <strong>ISP:</strong> Datacamp Limited
                 </p>
               </div>

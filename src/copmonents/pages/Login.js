@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../css/Login.css';
 import loginLogo from '../assets/login.png';
+import {useNavigate} from 'react-router-dom';
 
 
 
@@ -11,6 +12,10 @@ const Login = () => {
     setPasswordVisible(!passwordVisible);
   };
 
+  let Navto = useNavigate(); 
+  const handlelogin=()=>{
+    Navto('/home')
+  }
   return (
     <div className="container-login">
       <div className="left-section-login ">
@@ -48,7 +53,7 @@ const Login = () => {
             </button>
           </div>
         </div>
-        <button class="cssbuttons-io-button">
+        <button class="cssbuttons-io-button" onClick={handlelogin}>
           Login
           <div class="icon">
             <svg
@@ -66,7 +71,7 @@ const Login = () => {
           </div>
         </button>
         <div className="create-account">
-          <a href="#">Create an account ?</a>
+          <a href="/register">Create an account ?</a>
         </div>
       </div>
     </div>
