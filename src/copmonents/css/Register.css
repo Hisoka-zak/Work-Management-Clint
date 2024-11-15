@@ -85,3 +85,163 @@ h2 {
 .create-account a:hover {
     text-decoration: underline;
 }
+
+.error {
+    color: red;
+    font-size: 0.8em;
+    display: block;
+    margin-top: 4px;
+    margin-left: 8px;
+  }
+  
+  .small {
+    font-size: 0.75em;
+    color: #e74c3c;
+  }
+
+  .icon-error {
+    color: #e74c3c; /* Red color for error */
+  }
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    width: 600px;
+    max-width: 90%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-family: Arial, sans-serif;
+    text-align: left;
+  }
+  
+  .modal-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .modal-icon {
+    width: 30px;
+    height: 30px;
+    background-color: #f0f4f8;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+  }
+  
+  .modal-icon img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .modal-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .modal-subtitle {
+    font-size: 12px;
+    color: #888;
+    margin-top: 5px;
+  }
+  
+  .modal-body {
+    font-size: 14px;
+    color: #555;
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+  
+  .modal-close-button {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color:#2c5f6e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .radio-input input {
+    display: none;
+  }
+  
+  .radio-input {
+    --container_width: 170px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #000000;
+    width: var(--container_width);
+    overflow: hidden;
+    border: 1px solid rgba(53, 52, 52, 0.226);
+    height: 30px;
+  }
+  
+  .radio-input label {
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    font-weight: 300;
+    letter-spacing: -1px;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+  
+  .selection {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: calc(var(--container_width) / 2);
+    z-index: 0;
+    left: 0;
+    top: 0;
+    transition: 0.15s ease;
+  }
+  
+  .radio-input label:has(input:checked) {
+    color: #fff;
+  }
+  
+  .radio-input label:has(input:checked) ~ .selection {
+    background-color:#686868da;
+    display: inline-block;
+  }
+  
+  .radio-input label:nth-child(1):has(input:checked) ~ .selection {
+    transform: translateX(calc(var(--container_width) * 0 / 2));
+  }
+  
+  .radio-input label:nth-child(2):has(input:checked) ~ .selection {
+    transform: translateX(calc(var(--container_width) * 1 / 2));
+  }
+  
+  

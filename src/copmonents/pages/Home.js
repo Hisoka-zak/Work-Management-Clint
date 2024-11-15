@@ -19,7 +19,7 @@ const Home = () => {
       </section>
       <div className="content-row">
         <div className="column1">
-          <ShowTasks />
+         <ShowTasks />
         </div>
         <div className="column2">
         </div>

@@ -1,12 +1,15 @@
 # imports
 npm i react-router-dom   
 npm i reactstrap bootstrap     
-npm install bootstrap-icons  
-npm install @mui/icons-material
-npm install @mui/material
-npm install jquery
-npm install axios
-
+npm i bootstrap-icons  
+npm i @mui/icons-material
+npm i @mui/material
+npm i jquery
+npm i axios
+npm i react-hook-form
+npm i @reduxjs/toolkit
+npm i yup
+npm install @hookform/resolvers yup
 
 # API links
 Location:

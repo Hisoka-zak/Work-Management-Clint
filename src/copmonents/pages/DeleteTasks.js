@@ -1,391 +1,214 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../css/DeleteTasks.css";
 import { Card, ModalHeader, ModalBody, Button, Modal } from "reactstrap";
+import { useParams ,useNavigate} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTasks } from "../../Features/TaskSlice";
+import axios from "axios";
 import moha from "../assets/moha.avif";
 
 const DeleteTasks = () => {
-  // Demo tasks
-  const tasks = [
-    {
-      title: "Server Upgrade",
-      dueDate: "2024-11-01",
-      details:
-        "Upgrade all servers to the latest security patch and update firewall rules.",
-      state: "incomplete",
-    },
-    {
-      title: "Database Backup",
-      dueDate: "2024-11-05",
-      details:
-        "Create a full backup of the company’s databases and store it in the cloud.",
-      state: "complete",
-    },
-    {
-      title: "System Monitoring",
-      dueDate: "2024-11-10",
-      details:
-        "Implement 24/7 system monitoring for critical infrastructure services.",
-      state: "incomplete",
-    },
-    {
-      title: "Cloud Migration",
-      dueDate: "2024-11-15",
-      details: "Migrate legacy applications to cloud-based infrastructure.",
-      state: "incomplete",
-    },
-    {
-      title: "Network Configuration",
-      dueDate: "2024-11-20",
-      details:
-        "Configure network devices and secure VPN access for remote employees.",
-      state: "complete",
-    },
-    {
-      title: "API Development",
-      dueDate: "2024-11-25",
-      details:
-        "Develop new RESTful APIs to integrate third-party services with internal systems.",
-      state: "incomplete",
-    },
-    {
-      title: "Penetration Testing",
-      dueDate: "2024-12-01",
-      details:
-        "Conduct a full security audit and penetration test on all public-facing applications.",
-      state: "incomplete",
-    },
-    {
-      title: "Software Deployment",
-      dueDate: "2024-12-05",
-      details: "Deploy the latest version of the in-house ERP system.",
-      state: "complete",
-    },
-    {
-      title: "Data Encryption",
-      dueDate: "2024-12-10",
-      details:
-        "Implement encryption protocols for sensitive data storage and transmission.",
-      state: "incomplete",
-    },
-    {
-      title: "Server Upgrade",
-      dueDate: "2024-11-01",
-      details:
-        "Upgrade all servers to the latest security patch and update firewall rules.",
-      state: "incomplete",
-    },
-    {
-      title: "Database Backup",
-      dueDate: "2024-11-05",
-      details:
-        "Create a full backup of the company’s databases and store it in the cloud.",
-      state: "complete",
-    },
-    {
-      title: "System Monitoring",
-      dueDate: "2024-11-10",
-      details:
-        "Implement 24/7 system monitoring for critical infrastructure services.",
-      state: "incomplete",
-    },
-    {
-      title: "Cloud Migration",
-      dueDate: "2024-11-15",
-      details: "Migrate legacy applications to cloud-based infrastructure.",
-      state: "incomplete",
-    },
-    {
-      title: "Network Configuration",
-      dueDate: "2024-11-20",
-      details:
-        "Configure network devices and secure VPN access for remote employees.",
-      state: "complete",
-    },
-    {
-      title: "API Development",
-      dueDate: "2024-11-25",
-      details:
-        "Develop new RESTful APIs to integrate third-party services with internal systems.",
-      state: "incomplete",
-    },
-    {
-      title: "Penetration Testing",
-      dueDate: "2024-12-01",
-      details:
-        "Conduct a full security audit and penetration test on all public-facing applications.",
-      state: "incomplete",
-    },
-    {
-      title: "Software Deployment",
-      dueDate: "2024-12-05",
-      details: "Deploy the latest version of the in-house ERP system.",
-      state: "complete",
-    },
-    {
-      title: "Data Encryption",
-      dueDate: "2024-12-10",
-      details:
-        "Implement encryption protocols for sensitive data storage and transmission.",
-      state: "incomplete",
-    },
-    {
-      title: "Server Upgrade",
-      dueDate: "2024-11-01",
-      details:
-        "Upgrade all servers to the latest security patch and update firewall rules.",
-      state: "incomplete",
-    },
-    {
-      title: "Database Backup",
-      dueDate: "2024-11-05",
-      details:
-        "Create a full backup of the company’s databases and store it in the cloud.",
-      state: "complete",
-    },
-    {
-      title: "System Monitoring",
-      dueDate: "2024-11-10",
-      details:
-        "Implement 24/7 system monitoring for critical infrastructure services.",
-      state: "incomplete",
-    },
-    {
-      title: "Cloud Migration",
-      dueDate: "2024-11-15",
-      details: "Migrate legacy applications to cloud-based infrastructure.",
-      state: "incomplete",
-    },
-    {
-      title: "Network Configuration",
-      dueDate: "2024-11-20",
-      details:
-        "Configure network devices and secure VPN access for remote employees.",
-      state: "complete",
-    },
-    {
-      title: "API Development",
-      dueDate: "2024-11-25",
-      details:
-        "Develop new RESTful APIs to integrate third-party services with internal systems.",
-      state: "incomplete",
-    },
-    {
-      title: "Penetration Testing",
-      dueDate: "2024-12-01",
-      details:
-        "Conduct a full security audit and penetration test on all public-facing applications.",
-      state: "incomplete",
-    },
-    {
-      title: "Software Deployment",
-      dueDate: "2024-12-05",
-      details: "Deploy the latest version of the in-house ERP system.",
-      state: "complete",
-    },
-    {
-      title: "Data Encryption",
-      dueDate: "2024-12-10",
-      details:
-        "Implement encryption protocols for sensitive data storage and transmission.",
-      state: "incomplete",
-    },
-    {
-      title: "User Access Audit",
-      dueDate: "2024-12-15",
-      details:
-        "Perform an audit of user access privileges and disable inactive accounts.",
-      state: "incomplete",
-    },
-  ];
+  const { user } = useParams(); 
+  const dispatch = useDispatch();
+  const NavTo = useNavigate();
 
-  // Pagination state
+  const tasks = useSelector((state) => state.tasks.Task);
+
+  const [currentTasks, setCurrentTasks] = useState([]);
+  const [userDetails, setUserDetails] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const tasksPerPage = 10;
-
-  // Calculate pagination indexes
-  const indexOfLastTask = currentPage * tasksPerPage;
-  const indexOfFirstTask = indexOfLastTask - tasksPerPage;
-  const currentTasks = tasks.slice(indexOfFirstTask, indexOfLastTask);
-
-  // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  // Create pagination buttons
-  const totalPages = Math.ceil(tasks.length / tasksPerPage);
-  const pageNumbers = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
-
-  const [showStaffInfo, setShowStaffInfo] = useState(false); // State to handle displaying staff info
-
-  const handleStaffInfoClick = () => {
-    setShowStaffInfo(!showStaffInfo); // Toggle staff information display
-  };
-
-  // State to handle displaying detailed task description in modal
+  const tasksPerPage = 10; 
   const [showModal, setShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
+  const userdata = userDetails?.tasks?.[0]?.userdata?.[0] || {};
+  const countryCode = userdata?.country_code || "N/A";
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState(null);
 
+  // Fetch tasks on mount
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, [dispatch]);
+
+  // Filter tasks for the selected user and update current tasks
+  useEffect(() => {
+    if (tasks && tasks.length > 0) {
+      const filteredTasks = tasks.filter((task) => task.user === user);
+      setUserDetails({ tasks: filteredTasks });
+      updateCurrentTasks(filteredTasks, 1); // Default to first page
+    }
+  }, [tasks, user]);
+
+  // Update tasks for the current page
+  const updateCurrentTasks = (tasksList, pageNumber) => {
+    const startIndex = (pageNumber - 1) * tasksPerPage;
+    const endIndex = startIndex + tasksPerPage;
+    setCurrentTasks(tasksList.slice(startIndex, endIndex));
+    setCurrentPage(pageNumber);
+  };
+
+  // Handle pagination
+  const paginate = (pageNumber) => {
+    if (userDetails) {
+      updateCurrentTasks(userDetails.tasks, pageNumber);
+    }
+  };
+
+  // Open modal for task details
   const handleTaskClick = (task) => {
     setSelectedTask(task);
     setShowModal(true);
   };
+
+  const ToAddTask = ()=>{
+    NavTo(-1)
+  }
+  const handleDeleteConfirmation = async () => {
+    if (!taskToDelete) return;
+  
+    try {
+      const response = await axios.delete(`http://127.0.0.1:8080/api/tasks/${taskToDelete}`);
+      console.log(response.data.message);
+  
+      // Remove the deleted task from the state
+      const updatedTasks = userDetails.tasks.filter((task) => task._id !== taskToDelete);
+      setUserDetails({ tasks: updatedTasks });
+      updateCurrentTasks(updatedTasks, currentPage);
+    } catch (error) {
+      console.error("Error deleting task:", error.response?.data?.message || error.message);
+    }
+  
+    // Close modal
+    setShowConfirmModal(false);
+    setTaskToDelete(null);
+  };
+  
+
+  const confirmDeleteTask = (taskId) => {
+    setTaskToDelete(taskId);
+    setShowConfirmModal(true);
+  };
+  
+
   return (
     <div className="admin-panel">
       <div className="sidebar">
         <div className="profile text-center mb-4">
-          <img src={moha} alt="Profile" className="rounded-circle mb-2" />
+          <img src={userdata?.imgUrl? userdata.imgUrl:moha} alt="Profile" className="rounded-circle mb-2" />
           <p className="user-role">Staff</p>
-          <p className="">Mr.Mohammed</p>
-
+          {userdata?.gender === "Male" ? "Mr." : "Ms."} {user}
         </div>
         <ul className="menu">
-          <li className="menu-item bi bi-list-task">&nbsp;Add Task</li>
-          <li
-            className="menu-item bi bi-person-lines-fill"
-            onClick={handleStaffInfoClick}
-          >
+          <li className="menu-item bi bi-list-task" onClick={ToAddTask}>&nbsp;Add Task</li>
+          <li className="menu-item bi bi-person-lines-fill">
             &nbsp; Staff Information
           </li>
           <Card>
-            {/* Staff Information Section */}
-            {showStaffInfo && (
-              <div className="staff-info mt-4 p-3 text-dark border ">
-                <p>
-                <i class="bi bi-globe-americas"></i>&nbsp;&nbsp;
-                  <strong>Country:</strong> OMAN (OM)
-                </p>
-                <p>
-                <i class="bi bi-geo-alt-fill"></i>&nbsp;&nbsp;
-                  <strong>City:</strong> Muscat
-                </p>
-                <p>
-                <i class="bi bi-clock"></i>&nbsp;&nbsp;
-                  <strong>Timezone:</strong> Abu Dhabi / Muscat
-                </p>
-                <p>
-                <i class="bi bi-pc-display"></i>&nbsp;&nbsp;
-                  <strong>ISP:</strong> Datacamp Limited
-                </p>
-              </div>
-            )}
+            <div className="staff-info mt-4 p-3 text-dark border">
+              {userDetails ? (
+                <>
+                  <p>
+                    <i className="bi bi-globe-americas"></i>&nbsp;&nbsp;
+                    <strong>Country:</strong> {userdata.country || "Unknown"} ({countryCode})
+                  </p>
+                  <p>
+                    <i className="bi bi-geo-alt-fill"></i>&nbsp;&nbsp;
+                    <strong>City:</strong> {userdata.city || "Unknown"}
+                  </p>
+                  <p>
+                    <i className="bi bi-clock"></i>&nbsp;&nbsp;
+                    <strong>Timezone:</strong> {userdata.timezone || "Unknown"}
+                  </p>
+                  <p>
+                    <i className="bi bi-pc-display"></i>&nbsp;&nbsp;
+                    <strong>ISP:</strong> {userdata.isp || "Unknown"}
+                  </p>
+                </>
+              ) : (
+                <p>Loading user details...</p>
+              )}
+            </div>
           </Card>
         </ul>
-        <ul className="menu fixed-bottom p-4">
-        <li className="menu-item bi bi-box-arrow-right">&nbsp;Sign Out</li>
-      </ul>
       </div>
 
       <div className="col">
         <div className="main-content">
-          <div className="navbar-custom mb-4">
-            <div className="panel-title"></div>
-          </div>
-          <div className="staff-table">
-            <h3>Staff Tasks</h3>
-            <table className="table table-hover">
-              <thead className="thead-light">
-                <tr>
-                  <th>#</th>
-                  <th>Task Title&nbsp;<i class="bi bi-caret-down-fill"></i></th>
-                  <th>Due Date&nbsp;<i class="bi bi-caret-down-fill"></i></th>
-                  <th>Task Details&nbsp;<i class="bi bi-caret-down-fill"></i></th>
-                  <th>State&nbsp;<i class="bi bi-caret-down-fill"></i></th>
-                  <th>Actions&nbsp;<i class="bi bi-caret-down-fill"></i></th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentTasks.map((task, index) => (
-                  <tr key={index}>
-                    <th>{indexOfFirstTask + index + 1}</th>
-                    <td>{task.title}</td>
-                    <td>{task.dueDate}</td>
-                    <td>
-                      <button
-                        className="btn p-0 " style={{color:'blue'}}
-                        onClick={() => handleTaskClick(task)}
-                      >
-                        View Details
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        className={`${
-                          task.state === "incomplete" ? "warning" : "success"
-                        } disabled`}
-                        disabled
-                      >&nbsp;
-                        {task.state}
-                    </button>
-                    </td>
-                    <td>
-                      <button className="btn-edit bi-pencil-square"></button>
-                      &nbsp;
-                      <button className="btn-delete bi-x-circle"></button>
-                    </td>
+          <h3>Staff Tasks</h3>
+          {currentTasks.length > 0 ? (
+            <>
+              <table className="table table-hover">
+                <thead className="thead-light">
+                  <tr>
+                    <th>#</th>
+                    <th>Task Title&nbsp;<i className="bi bi-caret-down-fill"></i></th>
+                    <th>Due Date&nbsp;<i className="bi bi-caret-down-fill"></i></th>
+                    <th>Task Details&nbsp;<i className="bi bi-caret-down-fill"></i></th>
+                    <th>State&nbsp;<i className="bi bi-caret-down-fill"></i></th>
+                    <th>Actions&nbsp;<i className="bi bi-caret-down-fill"></i></th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-
-            {/* Pagination controls */}
-            <nav>
-              <ul className="pagination">
-                {/* Previous Button */}
-                <li
-                  className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
-                >
-                  <Button
-                    onClick={() => paginate(currentPage - 1)}
-                    className="page-link"
-                  >
-                    <i class="bi bi-caret-left-fill"></i>
-                  </Button>
-                </li>
-
-                {/* Display 3 page numbers (prev, current, next) */}
-                {pageNumbers
-                  .slice(
-                    Math.max(0, currentPage - 2),
-                    Math.min(pageNumbers.length, currentPage + 1)
-                  )
-                  .map((number) => (
-                    <li
-                      key={number}
-                      className={`page-item ${
-                        number === currentPage ? "active" : ""
-                      }`}
-                    >
-                      <Button
-                        onClick={() => paginate(number)}
-                        className="page-link"
-                      >
-                        {number}
-                      </Button>
-                    </li>
+                </thead>
+                <tbody>
+                  {currentTasks.map((task, index) => (
+                    <tr key={task._id}>
+                      <th>{(currentPage - 1) * tasksPerPage + index + 1}</th>
+                      <td>{task.title}</td>
+                      <td>{new Date(task.dueDate).toLocaleDateString()}</td>
+                      <td>
+                        <button
+                          className="btn p-0 text-primary"
+                          onClick={() => handleTaskClick(task)}
+                        >
+                          View Details
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          className={`${
+                            task.completed ? "success" : "warning"
+                          }`}
+                          disabled
+                        >
+                          {task.completed ? "Completed" : "Incomplete"}
+                        </button>
+                      </td>
+                      <td>
+                        <button className="btn-edit bi bi-pencil-square"></button>
+                        &nbsp;
+                        <button className="btn-delete bi bi-x-circle"
+                        onClick={() => confirmDeleteTask(task._id)}></button>
+                      </td>
+                    </tr>
                   ))}
-
-                {/* Next Button */}
-                <li
-                  className={`page-item ${
-                    currentPage === pageNumbers.length ? "disabled" : ""
-                  }`}
-                >
-                  <Button
-                    onClick={() => paginate(currentPage + 1)}
-                    className="page-link"
-                  >
-                    <i class="bi bi-caret-right-fill"></i>
-                  </Button>
-                </li>
-              </ul>
-            </nav>
-          </div>
+                </tbody>
+              </table>
+              <nav>
+                <ul className="pagination">
+                  {[...Array(Math.ceil(userDetails.tasks.length / tasksPerPage))].map(
+                    (_, i) => (
+                      <li
+                        key={i}
+                        className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
+                      >
+                        <Button
+                          onClick={() => paginate(i + 1)}
+                          className="page-link"
+                        >
+                          {i + 1}
+                        </Button>
+                      </li>
+                    )
+                  )}
+                </ul>
+              </nav>
+            </>
+          ) : (
+            <p>No tasks available for this user.</p>
+          )}
         </div>
       </div>
 
-      {/* Modal for displaying task details */}
+       {/* Modal Handling */}
       {selectedTask && (
         <Modal isOpen={showModal} toggle={() => setShowModal(false)}>
           <ModalHeader toggle={() => setShowModal(false)}>
@@ -395,12 +218,25 @@ const DeleteTasks = () => {
             <p>
               <strong>Details:</strong> {selectedTask.details}
             </p>
-            <Button color="secondary" onClick={() => setShowModal(false)}>
-              Close
-            </Button>
           </ModalBody>
         </Modal>
       )}
+      <Modal isOpen={showConfirmModal} toggle={() => setShowConfirmModal(false)}>
+        <ModalHeader toggle={() => setShowConfirmModal(false)}>
+          Confirm Deletion
+        </ModalHeader>
+        <ModalBody>
+          <p>Are you sure you want to delete this task?</p>
+          <div className="d-flex justify-content-end">
+            <Button color="danger" onClick={handleDeleteConfirmation}>
+              Delete
+            </Button>
+            <Button color="secondary" onClick={() => setShowConfirmModal(false)} className="ms-2">
+              Cancel
+            </Button>
+          </div>
+        </ModalBody>
+      </Modal>
     </div>
   );
 };
