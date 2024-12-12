@@ -4,7 +4,7 @@ import axios from "axios";
 // Async thunk for fetching tasks
 export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async (_, { rejectWithValue }) => {
     try {
-        const response = await axios.get("http://127.0.0.1:8080/api/getSpecificTask");
+        const response = await axios.get("https://work-management-server-ujgr.onrender.com/api/getSpecificTask");
         return response.data.Task;
     } catch (error) {
         return rejectWithValue("Failed to fetch tasks");
@@ -14,7 +14,7 @@ export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async (_, { rejec
 // Async thunk for adding a new task
 export const addTask = createAsyncThunk("tasks/addTask", async (taskData, { rejectWithValue }) => {
     try {
-        const response = await axios.post("http://127.0.0.1:8080/api/inserTask", {
+        const response = await axios.post("https://work-management-server-ujgr.onrender.com/api/inserTask", {
             user: taskData.user,
             title: taskData.title,
             dueDate: taskData.dueDate,
@@ -31,7 +31,7 @@ export const deleteTask = createAsyncThunk(
     "tasks/deleteTask",
     async (taskId, { rejectWithValue }) => {
         try {
-            const response = await axios.delete(`http://127.0.0.1:8080/api/tasks/${taskId}`);
+            const response = await axios.delete(`https://work-management-server-ujgr.onrender.com/api/tasks/${taskId}`);
             return { taskId, message: response.data.message };
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || "Failed to delete task");
@@ -44,7 +44,7 @@ export const updateTask = createAsyncThunk(
     "tasks/updateTask",
     async ({ id, taskData }, { rejectWithValue }) => {
         try {
-            const response = await axios.put(`http://127.0.0.1:8080/api/updateTask/${id}`, taskData);
+            const response = await axios.put(`https://work-management-server-ujgr.onrender.com/api/updateTask/${id}`, taskData);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || "Failed to update task");

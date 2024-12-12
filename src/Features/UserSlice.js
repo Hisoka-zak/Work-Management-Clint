@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const addUser = createAsyncThunk("users/addUser", async (userData, { rejectWithValue }) => {
     try {
-        const response = await axios.post("http://127.0.0.1:8080/api/insertUser", {
+        const response = await axios.post("https://work-management-server-ujgr.onrender.com/api/insertUser", {
             user: userData.user,
             password: userData.password,
             email: userData.email,
@@ -23,7 +23,7 @@ export const addUser = createAsyncThunk("users/addUser", async (userData, { reje
 
 export const getUser = createAsyncThunk("users/getUser", async (userData, { rejectWithValue }) => {
     try {
-        const response = await axios.post("http://127.0.0.1:8080/api/login", {
+        const response = await axios.post("https://work-management-server-ujgr.onrender.com/api/login", {
             password: userData.password,
             user: userData.user,
         });
@@ -35,7 +35,7 @@ export const getUser = createAsyncThunk("users/getUser", async (userData, { reje
 
 export const getUsers = createAsyncThunk("users/getUsers", async (_, { rejectWithValue }) => {
     try {
-        const response = await axios.get("http://127.0.0.1:8080/api/getUsers");
+        const response = await axios.get("https://work-management-server-ujgr.onrender.com/api/getUsers");
         return response.data;
     } catch (error) {
         return rejectWithValue("Failed to fetch users");
