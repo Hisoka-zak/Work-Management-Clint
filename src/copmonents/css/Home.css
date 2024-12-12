@@ -7,6 +7,14 @@
     height: 730px;
     
 }
+.carousel-image {
+  padding-top: 80px;
+  display: block;
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  margin: 0; 
+}
 
 .sidebar{
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;

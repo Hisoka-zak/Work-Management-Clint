@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import ValidationLoginSchema from "../../validations/LoginValidation";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, resetState } from "../../Features/UserSlice";
-import { Modal, Spinner } from "reactstrap";
+import { Modal } from "reactstrap";
 
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -48,7 +48,7 @@ const Login = () => {
           setFaild("Invalid Username or Password !!");
           dispatch(resetState()); // Reset state after failure
         }
-      }, 2000);
+      }, 5000);
   
       return () => clearTimeout(timer); // Cleanup timeout on unmount
     }
@@ -69,12 +69,24 @@ const Login = () => {
   return (
     <>
       <Modal isOpen={loading} className="loading-modal" centered>
+        <br></br><br></br><br></br>
         <div className="text-center">
-          <Spinner color="primary" />
-          <p>Logging in, please wait...</p>
+        <div class="orwellian-container">
+            <div class="orwellian-loader">
+              <div class="eye">
+                <div class="pupil"></div>
+                <div class="eyelid"></div>
+              </div>
+              <div class="spotlight"></div>
+              <div class="text">SEARCH FOR THE USER</div>
+              <div class="scan-lines"></div>
+              <div class="tv-effect"></div>
+            </div>
+          </div>         
         </div>
+        <br></br><br></br><br></br>
       </Modal>
-      <form className="container-register">
+      <form className="container-login">
         <div className="left-section-login ">
           <img src={loginLogo} alt="Signup Illustration" />
         </div>

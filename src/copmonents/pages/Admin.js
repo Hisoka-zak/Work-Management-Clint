@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import "../css/Admin.css";
 import admin from "../assets/admin.avif";
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsers } from '../../Features/UserSlice'; 
+import { getUsers, logoutUser } from '../../Features/UserSlice'; 
 import { addTask } from '../../Features/TaskSlice'; 
 import {useNavigate} from 'react-router-dom';
 import { Modal, ModalHeader, ModalBody, Button } from "reactstrap";
+import LoadingIcon from '../sections/LoadingIcon';
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -23,8 +24,10 @@ const Admin = () => {
   const user = useSelector((state) => state.users.user);
   const dfimg = 'https://static.vecteezy.com/system/resources/thumbnails/013/360/247/small/default-avatar-photo-icon-social-media-profile-sign-symbol-vector.jpg';
   const users = useSelector((state) => state.users.users);
-  const taskMessage = useSelector((state) => state.tasks.message);
-  const navigate = useNavigate();
+  console.log(user);
+  
+  const NavTo = useNavigate();
+  
   
   // Dispatch getUsers on component mount
   useEffect(() => {
@@ -65,12 +68,33 @@ const Admin = () => {
 
   const handleViewTask = () => {
     if (selectedUser) {
-      navigate(`/user-details/${selectedUser}`);
+      NavTo(`/user-details/${selectedUser}`);
     } else {
       setDialogMessage("Please select a staff name first.");
       setShowDialog(true);
     }
   };
+
+  const handleSignOut = () => {
+    dispatch(logoutUser()); 
+    NavTo('/'); 
+  };
+
+  if (Object.keys(user).length === 0) {
+    return (
+        <div className="admin-panel d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+            <div className="text-center">
+                <LoadingIcon/>
+                <h2>Please log in again to access the WebApp.</h2>               
+                <Button color="dark" onClick={handleSignOut}>
+                    Go to Login
+                </Button>
+            </div>
+        </div>
+    );
+}
+
+
   
   return (
     <div className="admin-panel">
@@ -86,7 +110,7 @@ const Admin = () => {
           <li className="menu-item bi bi-person-lines-fill disabled">&nbsp; Staff Information</li>
         </ul>
         <ul className="menu fixed-bottom p-4">
-          <li onClick={()=>navigate('/')} className="menu-item bi bi-box-arrow-right">&nbsp;Sign Out</li>
+          <li onClick={handleSignOut} className="menu-item bi bi-box-arrow-right">&nbsp;Sign Out</li>
         </ul>
       </div>
       <div className="container-admin">

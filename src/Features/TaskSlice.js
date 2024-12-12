@@ -5,7 +5,7 @@ import axios from "axios";
 export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async (_, { rejectWithValue }) => {
     try {
         const response = await axios.get("http://127.0.0.1:8080/api/getSpecificTask");
-        return response.data.Task; // Assuming `Task` is the array of tasks in the response
+        return response.data.Task;
     } catch (error) {
         return rejectWithValue("Failed to fetch tasks");
     }
@@ -26,6 +26,32 @@ export const addTask = createAsyncThunk("tasks/addTask", async (taskData, { reje
     }
 });
 
+// Async thunk for deleting a task
+export const deleteTask = createAsyncThunk(
+    "tasks/deleteTask",
+    async (taskId, { rejectWithValue }) => {
+        try {
+            const response = await axios.delete(`http://127.0.0.1:8080/api/tasks/${taskId}`);
+            return { taskId, message: response.data.message };
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || "Failed to delete task");
+        }
+    }
+);
+
+// Async thunk for updating a task
+export const updateTask = createAsyncThunk(
+    "tasks/updateTask",
+    async ({ id, taskData }, { rejectWithValue }) => {
+        try {
+            const response = await axios.put(`http://127.0.0.1:8080/api/updateTask/${id}`, taskData);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || "Failed to update task");
+        }
+    }
+);
+
 const initialState = {
     Task: [],
     isLoading: false,
@@ -34,13 +60,13 @@ const initialState = {
     message: "",
 };
 
-// Task slice definition
+
 const TaskSlice = createSlice({
     name: "tasks",
     initialState,
     reducers: {
         clearMessage: (state) => {
-            state.message = ""; // clear the message
+            state.message = "";
         },
     },
     extraReducers: (builder) => {
@@ -55,7 +81,7 @@ const TaskSlice = createSlice({
             .addCase(fetchTasks.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
-                state.Task = action.payload; // Populate Task array with fetched tasks
+                state.Task = action.payload;
                 state.message = "Tasks fetched successfully";
             })
             .addCase(fetchTasks.rejected, (state, action) => {
@@ -73,13 +99,52 @@ const TaskSlice = createSlice({
             .addCase(addTask.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
-                state.Task.push(action.payload); // Add the new task to Task array
+                state.Task.push(action.payload);
                 state.message = action.payload.message || "Task added successfully";
             })
             .addCase(addTask.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload || "Failed to add task";
+            })
+            // Delete task
+            .addCase(deleteTask.pending, (state) => {
+                state.isLoading = true;
+                state.isError = false;
+                state.isSuccess = false;
+                state.message = "";
+            })
+            .addCase(deleteTask.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.Task = state.Task.filter((task) => task._id !== action.payload.taskId);
+                state.message = action.payload.message || "Task deleted successfully";
+            })
+            .addCase(deleteTask.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload || "Failed to delete task";
+            })
+            // Update task
+            .addCase(updateTask.pending, (state) => {
+                state.isLoading = true;
+                state.isError = false;
+                state.isSuccess = false;
+                state.message = "";
+            })
+            .addCase(updateTask.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                const index = state.Task.findIndex((task) => task._id === action.payload.task._id);
+                if (index !== -1) {
+                    state.Task[index] = action.payload.task;
+                }
+                state.message = action.payload.message || "Task updated successfully";
+            })
+            .addCase(updateTask.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload || "Failed to update task";
             });
     },
 });

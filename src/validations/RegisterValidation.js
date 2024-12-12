@@ -1,6 +1,5 @@
 import * as Yup from 'yup';
 
-
 const ValidationRegisterSchema = Yup.object().shape({
     username:Yup.string().required("Username is required !!").matches(
         /^[a-zA-Z0-9]+$/,

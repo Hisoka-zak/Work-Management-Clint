@@ -1,20 +1,26 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import '../css/Contact.css';
 import contact from '../assets/Image3.jpeg';
 import Footer from '../sections/Footer';
 import Header from '../sections/Header';
-import $ from 'jquery'; // Ensure jQuery is installed and imported
+import $ from 'jquery';
+import { useSelector } from 'react-redux';
+import LoadingIcon from '../sections/LoadingIcon';
+import { useNavigate } from 'react-router-dom';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 const Contact = () => {
   const formRef = useRef();
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [modalMessage, setModalMessage] = useState(''); 
 
   const sendEmail = (e) => {
     e.preventDefault();
 
     const data = {
-      service_id: 'service_qvzfk9i', // Replace with your service ID
-      template_id: 'template_x7evfyc', // Replace with your template ID
-      user_id: '27_4QRCzQW9hTjL4v', // Replace with your public key
+      service_id: 'service_qvzfk9i',
+      template_id: 'template_x7evfyc', 
+      user_id: '27_4QRCzQW9hTjL4v', 
       template_params: {
         user_name: `${formRef.current.firstName.value} ${formRef.current.lastName.value}`,
         user_email: formRef.current.email.value,
@@ -26,17 +32,36 @@ const Contact = () => {
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-    }).done(function () {
-      alert('Your mail is sent!');
-      // Optionally, clear the form fields after submission
-      formRef.current.reset();
-    }).fail(function (error) {
-      alert('Oops... ' + JSON.stringify(error));
-    });
+    })
+      .done(function () {
+        setModalMessage(' Thanks for contact us ✨ ');
+        setIsModalOpen(true); // Show success modal
+        formRef.current.reset(); // Clear the form
+      })
+      .fail(function (error) {
+        setModalMessage(`Oops... ${JSON.stringify(error)}`);
+        setIsModalOpen(true); // Show error modal
+      });
   };
 
+  const NavTo = useNavigate();
+  const user = useSelector((state) => state.users.user);
+  if (Object.keys(user).length === 0) {
+    return (
+      <div className="admin-panel d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+        <div className="text-center">
+          <LoadingIcon />
+          <h2>Please log in again to access the WebApp.</h2>
+          <Button color="dark" onClick={() => NavTo('/')}>
+            Go to Login
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className='main-contact'>
+    <div className="main-contact">
       <Header />
       <div className="container contact-container">
         <div className="contact-content">
@@ -70,8 +95,16 @@ const Contact = () => {
         </div>
       </div>
       <Footer />
+
+      {/* Modal for Success/Error Message */}
+      <Modal isOpen={isModalOpen} toggle={() => setIsModalOpen(false)}>
+        <ModalHeader toggle={() => setIsModalOpen(false)}>Message</ModalHeader>
+        <ModalBody>
+          {modalMessage}
+        </ModalBody>
+      </Modal>
     </div>
   );
-}
+};
 
 export default Contact;

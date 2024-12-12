@@ -11,6 +11,7 @@ import CompletedTasks from './copmonents/pages/CompletedTasks';
 
 
 function App() {
+  
   return (
   <BrowserRouter>
   <Routes>
@@ -22,7 +23,7 @@ function App() {
     <Route path='/completedTasks' element={<CompletedTasks/>}/>
     <Route path='/admin'      element={<Admin/>}/>
     <Route path='/user-details/:user' element={<DeleteTasks/>}/>
-    <Route path='/updateTask' element={<UpdateTask/>}/>
+    <Route path='/update-task/:id' element={<UpdateTask/>}/>
 
   </Routes>
   </BrowserRouter>
