@@ -12,7 +12,20 @@
     overflow: hidden;
     font-family:'Times New Roman', Times, serif;
 }
+.tag-button {
+  background: none; /* No background color */
+  color: #007bff; /* Blue text color */
+  border: none; /* No border */
+  padding: 10px 20px; /* Padding inside the button */
+  font-size: 16px; /* Font size */
+  text-decoration: underline; /* Underline the text */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: color 0.3s ease; /* Smooth transition for color change */
+}
 
+.tag-button:hover {
+  color: #0056b3; /* Darker blue text on hover */
+}
 .left-section-login {
     flex: 1;
     background-color: white;
