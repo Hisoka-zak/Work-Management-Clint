@@ -272,7 +272,7 @@ const Register = () => {
           </div>
         </button>
         <div className="create-account">
-          <a onClick={navigate("/login")}>I am already a member</a>
+        <button className="tag-button" onClick={() => navigate("/login")}>I am already a member</button>
         </div>
       </div>
       <div className="right-section">
