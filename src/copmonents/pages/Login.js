@@ -172,7 +172,7 @@ const Login = () => {
           </button>
           <span className="error small">{faild}</span>
           <div className="create-account">
-            <a href="/register">Create an account?</a>
+            <a onClick={navigate('/register')}>Create an account?</a>
           </div>
         </div>
       </form>
