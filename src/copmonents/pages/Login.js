@@ -48,7 +48,7 @@ const Login = () => {
           setFaild("Invalid Username or Password !!");
           dispatch(resetState()); // Reset state after failure
         }
-      }, 5000);
+      }, 2000);
   
       return () => clearTimeout(timer); // Cleanup timeout on unmount
     }
