@@ -8,12 +8,15 @@ body {
 
   .sidebar {
     width: 240px;
-    background-color: #252e31b9;
+    background-color:#252e31b9;
     color: white;
     padding: 20px;
     height: 100vh; /* Full viewport height */
     position: fixed; /* Keeps the sidebar fixed while scrolling */
+    border-right: 2px solid white; /* Adds a vertical white line on the right */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow for a modern look */
   }
+  
   
 
   .staff-info {
