@@ -83,7 +83,7 @@ const ShowTasks = () => {
                 />
                 <Button 
                 style={{ background: '#2c5f6e' }}
-                className="ms-2 shadow-sm">
+                className="ms-2 shadow-sm" disabled>
                   <i className="bi bi-search"></i>
                 </Button>
               </InputGroup>
