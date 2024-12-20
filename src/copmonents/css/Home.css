@@ -4,7 +4,7 @@
     background-position: center;
     background-repeat: no-repeat;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    height: 730px;
+    height: 100vh;
     
 }
 .carousel-image {
@@ -33,7 +33,7 @@
 }
 .services h1{
   font-weight: 700;
-  color: #2c5f6e;
+  color: #ffffff;
 }
 .header p {
     margin: 20px 0;
@@ -211,4 +211,16 @@ span{
 }
 
   
-  
+.profile-image-container {
+  border: 3px solid #ffffff; /* Always visible blue border */
+  border-radius: 50%; /* Circular design */
+  padding: 5px;
+  box-shadow: 0 0 10px #ffffff; /* Subtle glow effect */
+  transition: all 0.3s ease-in-out;
+  cursor: pointer; /* Indicates interactiveness */
+}
+
+.profile-image {
+  border-radius: 50%; /* Ensures the image remains circular */
+  display: block;
+}
