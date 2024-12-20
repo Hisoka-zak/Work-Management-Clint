@@ -3,6 +3,7 @@
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 .contact-container {
+    margin-top: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
